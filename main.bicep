@@ -19,7 +19,7 @@ param storageSkuName string = 'Standard_LRS'
 
 @description('API key for external service')
 @secure()
-param apiKey string = 'API KEY'
+param apiKey string
 
 /*
 ** Variables
