@@ -52,4 +52,4 @@ stages:
                 az deployment group create  `
                 --template-file $(Build.SourcesDirectory)/main.bicep `
                 --resource-group $(ResourceGroupName) `
-                --parameters resourcePrefix=$(resourceprefix)
+                --parameters resourcePrefix=$(resourceprefix) apiKey=testToken
