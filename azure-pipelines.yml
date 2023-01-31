@@ -30,6 +30,10 @@ stages:
         PathtoPublish: '$(Build.SourcesDirectory)/main.json'  
         ArtifactName: 'finishedTemplate'  
         publishLocation: 'Container' 
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
 
 - stage: deploy
   jobs:
@@ -53,3 +57,10 @@ stages:
                 --template-file $(Build.SourcesDirectory)/main.bicep `
                 --resource-group $(ResourceGroupName) `
                 --parameters resourcePrefix=$(resourceprefix) apiKey=testToken
+          - task: AzureFunctionApp@1
+            inputs:
+              azureSubscription: 'Azure Mart MPN'
+              appType: 'functionApp'
+              appName: 'bicep-fnapp-2wej7bj'
+              package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              deploymentMethod: 'auto'
