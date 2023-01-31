@@ -34,7 +34,11 @@ stages:
       inputs:
         command: 'build'
         projects: '**/*.csproj'
-
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
 - stage: deploy
   jobs:
   - deployment: biceptoAzure
