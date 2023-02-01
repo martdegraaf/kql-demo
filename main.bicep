@@ -21,6 +21,9 @@ param storageSkuName string = 'Standard_LRS'
 @secure()
 param apiKey string
 
+
+param appServicePlanSkuName string = 'Y1'
+
 /*
 ** Variables
 */
@@ -129,9 +132,9 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 resource plan 'Microsoft.Web/serverfarms@2021-02-01' = {
   name: appServicePlanName
   location: location
-  kind: 'functionapp'
+  kind: 'linux'
   sku: {
-    name: 'Y1'
+    name: appServicePlanSkuName
   }
   properties: {
   }
