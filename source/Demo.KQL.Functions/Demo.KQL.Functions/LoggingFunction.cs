@@ -36,7 +36,7 @@ namespace Demo.KQL.Functions
             int times = rnd.Next(1, 3);
             for (int i = 0; i < times; i++)
             {
-                _logger.LogInformation("Sending mail {mailType}, {i}", "Duplicate", i);
+                _logger.LogInformation("Sending mail {mailType}, {someId}", "Duplicate", i);
             }
 
             return times;
