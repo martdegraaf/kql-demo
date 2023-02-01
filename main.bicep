@@ -119,7 +119,7 @@ resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: appInsightsName
   location: location
-  kind: 'web'
+  kind: 'other'
   properties: {
     Application_Type: 'web'
     publicNetworkAccessForIngestion: 'Enabled'
