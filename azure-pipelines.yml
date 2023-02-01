@@ -75,5 +75,5 @@ stages:
               azureSubscription: 'Azure Mart MPN'
               appType: 'functionApp'
               appName: 'bicep-fnapp-2wej7bj'
-              package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              package: '$(System.DefaultWorkingDirectory)/Build/Artifacts/*.zip'
               deploymentMethod: 'auto'
