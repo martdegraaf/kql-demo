@@ -7,6 +7,17 @@ variables:
   location: 'westeurope'
   azureSubscription: 'Azure Mart MPN'
   resourcePrefix: 'bicep'
+  # Azure Resource Manager connection created during pipeline creation
+  azureSubscription: '0788092a-a6d9-4a51-ad71-7d1a9e0bd299'
+
+  # Function app name
+  functionAppName: 'bicep-fnapp-2wej7bj'
+
+  # Agent VM image name
+  vmImageName: 'windows-2019'
+
+  # Working Directory
+  workingDirectory: '$(System.DefaultWorkingDirectory)/source/Demo.KQL.Functions/Demo.KQL.Functions'
 
 pool:
   vmImage: ubuntu-latest
@@ -31,23 +42,24 @@ stages:
         ArtifactName: 'finishedTemplate'  
         publishLocation: 'Container' 
     - task: DotNetCoreCLI@2
+      displayName: Build
       inputs:
-        command: publish
-        arguments: '--configuration Release --output publish_output'
-        projects: '**/*.csproj'
-        publishWebProjects: false
-        modifyOutputPath: false
-        zipAfterPublish: false
+        command: 'build'
+        projects: |
+          $(workingDirectory)/*.csproj
+        arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release
+
     - task: ArchiveFiles@2
-      displayName: "Archive files"
+      displayName: 'Archive files'
       inputs:
-        rootFolderOrFile: "$(System.DefaultWorkingDirectory)/publish_output"
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/publish_output'
         includeRootFolder: false
-        archiveFile: "$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip"
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip'
-        artifactName: 'drop'
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        replaceExistingArchive: true
+
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+      artifact: drop
 - stage: deploy
   jobs:
   - deployment: biceptoAzure
@@ -71,9 +83,9 @@ stages:
                 --resource-group $(ResourceGroupName) `
                 --parameters resourcePrefix=$(resourceprefix) apiKey=testToken
           - task: AzureFunctionApp@1
+            displayName: 'Azure functions app deploy'
             inputs:
-              azureSubscription: 'Azure Mart MPN'
-              appType: 'functionApp'
-              appName: 'bicep-fnapp-2wej7bj'
-              package: $(System.ArtifactsDirectory)/**/*.zip
-              deploymentMethod: 'auto'
+              azureSubscription: '$(azureSubscription)'
+              appType: functionApp
+              appName: $(functionAppName)
+              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
