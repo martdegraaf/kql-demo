@@ -8,7 +8,7 @@ variables:
   azureSubscription: 'Azure Mart MPN'
   resourcePrefix: 'bicep'
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '0788092a-a6d9-4a51-ad71-7d1a9e0bd299'
+  # azureSubscription: '0788092a-a6d9-4a51-ad71-7d1a9e0bd299'
 
   # Function app name
   functionAppName: 'bicep-fnapp-2wej7bj'
