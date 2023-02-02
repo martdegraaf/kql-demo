@@ -235,7 +235,7 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
 
 // Deploy the Azure Function app with application settings including one which references the API Key
 // held in KeyVault
-resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
+resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
   name: functionAppName2
   location: location
   kind: 'functionapp'
