@@ -5,11 +5,11 @@ namespace Demo.KQL.Functions
 {
     public class BreakingFunction
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<BreakingFunction> _logger;
 
-        public BreakingFunction(ILoggerFactory loggerFactory)
+        public BreakingFunction(ILogger<BreakingFunction> logger)
         {
-            _logger = loggerFactory.CreateLogger<BreakingFunction>();
+            _logger = logger;
         }
 
         [Function("BreakingFunction")]
