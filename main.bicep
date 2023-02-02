@@ -35,6 +35,7 @@ var appInsightsName = '${resourcePrefix}-appi-${resourceSuffix}'
 var appServicePlanName = '${resourcePrefix}-asp-${resourceSuffix}'
 var keyVaultName = '${resourcePrefix}-kv-${resourceSuffix}'
 var functionAppName = '${resourcePrefix}-fnapp-${resourceSuffix}'
+var functionAppName2 = '${resourcePrefix}-fnapp-${resourceSuffix}-2'
 var logAnalyticsName = '${resourcePrefix}-law-${resourceSuffix}'
 
 var storageBlobDataContributorRole = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')
@@ -209,6 +210,61 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
           value: 'dotnet-isolated'
+        }
+        {
+          name: 'FUNCTIONS_EXTENSION_VERSION'
+          value: '~4'
+        }
+        {
+          name: 'ApiKey'
+          value: '@Microsoft.KeyVault(VaultName=${kv.name};SecretName=${kv::storageNameSecret.name})'
+        }
+        {
+          name: 'ContentStorageAccount'
+          value: storage.name
+        }
+        {
+          name: 'ContentContainer'
+          value: storage::blobService::content.name
+        }
+      ]
+    }
+  }
+}
+
+
+// Deploy the Azure Function app with application settings including one which references the API Key
+// held in KeyVault
+resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
+  name: functionAppName2
+  location: location
+  kind: 'functionapp'
+  identity: {
+    type: 'SystemAssigned'
+  }
+  properties: {
+    httpsOnly: true
+    serverFarmId: plan.id
+    siteConfig: {
+      ftpsState: 'Disabled'
+      minTlsVersion: '1.2'
+      netFrameworkVersion: 'v6.0'
+      appSettings: [
+        {
+          name: 'AzureWebJobsStorage'
+          value: storageConnectionString
+        }
+        {
+          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+          value: storageConnectionString
+        }
+        {
+          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+          value: appInsights.properties.InstrumentationKey
+        }
+        {
+          name: 'FUNCTIONS_WORKER_RUNTIME'
+          value: 'dotnet'
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'

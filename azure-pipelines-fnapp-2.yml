@@ -1,0 +1,77 @@
+name: Bicep-KQL-demo
+trigger:
+- main
+
+variables:
+  resourceGroupName: 'kql-demo'
+  location: 'westeurope'
+  azureSubscription: 'Azure Mart MPN'
+  resourcePrefix: 'bicep'
+  # Azure Resource Manager connection created during pipeline creation
+  # azureSubscription: '0788092a-a6d9-4a51-ad71-7d1a9e0bd299'
+
+  # Function app name
+  functionAppName: 'bicep-fnapp-2wej7bj-2'
+
+  # Agent VM image name
+  vmImageName: 'windows-2019'
+
+  # Working Directory
+  workingDirectory: '$(System.DefaultWorkingDirectory)/source/Demo.KQL.FunctionsNet6/Demo.KQL.Functions'
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: 'build'
+        projects: |
+          $(workingDirectory)/*.csproj
+        arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive files'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/publish_output'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        replaceExistingArchive: true
+
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+      artifact: drop
+- stage: deploy
+  jobs:
+  - deployment: biceptoAzure
+    displayName: 'Deploy bicep to Azure'
+    environment: 'Demo'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: AzureCLI@2
+            displayName: 'deploy bicep template'
+            inputs:
+              azureSubscription: $(azureSubscription) 
+              scriptType: 'pscore'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az group create --name $(ResourceGroupName) --location $(location)
+                az deployment group create  `
+                --template-file $(Build.SourcesDirectory)/main.bicep `
+                --resource-group $(ResourceGroupName) `
+                --parameters resourcePrefix=$(resourceprefix) apiKey=testToken
+          - task: AzureFunctionApp@1
+            displayName: 'Azure functions app deploy'
+            inputs:
+              azureSubscription: '$(azureSubscription)'
+              appType: functionApp
+              appName: $(functionAppName)
+              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
