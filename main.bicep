@@ -184,6 +184,7 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
   name: functionAppName
   location: location
   kind: 'functionapp'
+  tags: {Owner:'Mart',Service:'demo',Team:'martteam'}
   identity: {
     type: 'SystemAssigned'
   }
@@ -239,6 +240,7 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
   name: functionAppName2
   location: location
   kind: 'functionapp'
+  tags: {Owner:'Mart',Service:'demo 2',Team:'martteam 2'}
   identity: {
     type: 'SystemAssigned'
   }
@@ -264,7 +266,7 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'dotnet'
+          value: 'dotnet-isolated'
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
