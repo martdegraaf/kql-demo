@@ -138,6 +138,8 @@ resource plan 'Microsoft.Web/serverfarms@2021-02-01' = {
     name: appServicePlanSkuName
   }
   properties: {
+    computeMode: 'Dynamic'
+    reserved: true
   }
 }
 
@@ -183,7 +185,7 @@ resource kvFunctionAppPermissions 'Microsoft.Authorization/roleAssignments@2020-
 resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
   name: functionAppName
   location: location
-  kind: 'functionapp'
+  kind: 'functionapp,linux'
   tags: {Owner:'Mart',Service:'demo',Team:'martteam'}
   identity: {
     type: 'SystemAssigned'
@@ -192,6 +194,7 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
     httpsOnly: true
     serverFarmId: plan.id
     siteConfig: {
+      linuxFxVersion: 'DOTNETCORE|6.0'
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
       netFrameworkVersion: 'v6.0'
@@ -239,7 +242,7 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
 resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
   name: functionAppName2
   location: location
-  kind: 'functionapp'
+  kind: 'functionapp,linux'
   tags: {Owner:'Mart',Service:'demo 2',Team:'martteam 2'}
   identity: {
     type: 'SystemAssigned'
@@ -248,6 +251,7 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
     httpsOnly: true
     serverFarmId: plan.id
     siteConfig: {
+      linuxFxVersion: 'DOTNETCORE|6.0'
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
       netFrameworkVersion: 'v6.0'
