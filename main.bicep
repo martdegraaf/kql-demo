@@ -125,6 +125,8 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
     Application_Type: 'web'
     publicNetworkAccessForIngestion: 'Enabled'
     publicNetworkAccessForQuery: 'Enabled'
+    SamplingPercentage: 40
+    DisableIpMasking: false
     WorkspaceResourceId: logAnalytics.id
   }
 }
