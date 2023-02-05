@@ -1,6 +1,12 @@
 name: Bicep-KQL-demo
 trigger:
-- main
+  branches:
+    include:
+    - master
+    - main
+  paths:
+    include:
+    - source/Demo.KQL.FunctionsNet6/Demo.KQL.FunctionsNet6
 
 variables:
   resourceGroupName: 'kql-demo'
@@ -55,19 +61,6 @@ stages:
       runOnce:
         deploy:
           steps:
-          - checkout: self
-          - task: AzureCLI@2
-            displayName: 'deploy bicep template'
-            inputs:
-              azureSubscription: $(azureSubscription) 
-              scriptType: 'pscore'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                az group create --name $(ResourceGroupName) --location $(location)
-                az deployment group create  `
-                --template-file $(Build.SourcesDirectory)/main.bicep `
-                --resource-group $(ResourceGroupName) `
-                --parameters resourcePrefix=$(resourceprefix) apiKey=testToken
           - task: AzureFunctionApp@1
             displayName: 'Azure functions app deploy'
             inputs:

@@ -361,6 +361,24 @@ resource demoDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
               }
             }
           }
+          {
+            position:{
+              x: 8
+              y: 0
+            }
+            metadata:{
+              inputs:[
+                {
+                  name: 'Query'
+                  value: 'resources\n| where isnotempty(tags)\n| extend teamTag = tostring(tags["team"])\n| extend serviceTag = tostring(tags["Service"])\n| extend serviceTag2 = tostring(tags["service"])\n| where name like "prefix-p-"\n| project name, teamTag, serviceTag\n| order by [\'serviceTag\'] desc'
+                }
+              ]
+              type: 'Extension/HubsExtension/PartType/ArgQueryGridTile'
+              partHeader: {
+                title: 'Resouces team tags'
+              }
+            }
+          }
         ]
       }
     ]
