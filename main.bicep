@@ -138,7 +138,6 @@ resource plan 'Microsoft.Web/serverfarms@2021-02-01' = {
     name: appServicePlanSkuName
   }
   properties: {
-    computeMode: 'Dynamic'
     reserved: true
   }
 }
