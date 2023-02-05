@@ -371,6 +371,36 @@ resource demoDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
             metadata:{
               inputs:[
                 {
+                  name: 'chartType'
+                  isOptional: true
+                }
+                {
+                  name: 'isShared'
+                  isOptional: true
+                }
+                {
+                  name: 'queryId'
+                  isOptional: true
+                }
+                {
+                  name: 'partTitle'
+                  value: 'Query 1'
+                  isOptional: true
+                }
+                {
+                  name: 'queryScope'
+                  value: {
+                    scope: 0
+                    values: []
+                  }
+                  isOptional: true
+                }
+                {
+                  name: 'formatResults'
+                  value: true
+                  isOptional: true
+                }
+                {
                   name: 'Query'
                   value: 'resources\n| where isnotempty(tags)\n| extend teamTag = tostring(tags["team"])\n| extend serviceTag = tostring(tags["Service"])\n| extend serviceTag2 = tostring(tags["service"])\n| where name like "prefix-p-"\n| project name, teamTag, serviceTag\n| order by [\'serviceTag\'] desc'
                 }
