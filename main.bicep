@@ -288,3 +288,69 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
     }
   }
 }
+
+
+resource demoDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
+  location: location
+  name: 'demo-dashboard'
+  tags: {
+    'hidden-title': 'My demo Bicep dashboard'
+  }
+  properties: {
+    lenses: [
+      {
+        order: 0
+        parts: [
+          {
+            position: {
+              x: 0
+              y: 0
+              rowSpan: 2
+              colSpan: 3
+            }
+            metadata: {
+              inputs: []
+              type: 'Extension/HubsExtension/PartType/MarkdownPart'
+              settings: {
+                content: {
+                  settings: {
+                    content: '## Marts KQL demo\r\nThis is just markdown... This dashboard is managed by a bicep template.'
+                  }
+                }
+              }
+            }
+          }
+          {
+            position: {
+              x: 0
+              y: 2
+              rowSpan: 6
+              colSpan: 4
+            }
+            metadata: {
+              inputs: [
+                {
+                  name: 'Scope'
+                  value: {
+                    resourceIds: [
+                      appInsights.id
+                    ]
+                  }
+                }
+                {
+                  name: 'Query'
+                  value: 'traces \n| summarize count() by Date = bin(timestamp, 1h), cloud_RoleName \n| render columnchart with (title="Traces per hour by rolename")'
+                }
+                {
+                  name: 'ControlType'
+                  value: 'AnalyticsGrid'
+                }
+              ]
+              type: 'Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart'
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
