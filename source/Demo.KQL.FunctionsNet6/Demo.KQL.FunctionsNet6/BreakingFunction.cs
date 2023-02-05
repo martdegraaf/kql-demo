@@ -1,8 +1,8 @@
-using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace Demo.KQL.Functions
+namespace Demo.KQL.FunctionsNet6
 {
     public class BreakingFunction
     {
@@ -13,7 +13,7 @@ namespace Demo.KQL.Functions
             _logger = logger;
         }
 
-        [Function("BreakingFunction")]
+        [FunctionName("BreakingFunction")]
         public void Run([TimerTrigger("0 */5 * * * *")] MyInfo myTimer)
         {
             _logger.LogInformation("Executing {function}", nameof(BreakingFunction));

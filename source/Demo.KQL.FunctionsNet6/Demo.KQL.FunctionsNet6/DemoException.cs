@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Demo.KQL.Functions;
+namespace Demo.KQL.FunctionsNet6;
 public class DemoException : Exception
 {
-    public DemoException(string? message) : base(message)
+    public DemoException(string message) : base(message)
     {
     }
 }
