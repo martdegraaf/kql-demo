@@ -340,17 +340,26 @@ resource demoDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
                       appInsights.id
                     ]
                   }
+                  isOptional: true
                 }
                 {
                   name: 'Query'
                   value: 'traces \n| summarize count() by Date = bin(timestamp, 1h), cloud_RoleName \n| render columnchart with (title="Traces per hour by rolename")'
+                  isOptional: true
                 }
                 {
                   name: 'ControlType'
                   value: 'AnalyticsGrid'
+                  isOptional: true
                 }
               ]
               type: 'Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart'
+              settings: {
+                content: {
+                  Query: 'traces \n| summarize count() by Date = bin(timestamp, 1h), cloud_RoleName \n| render columnchart with (title="Traces per hour by rolename")'
+                  PartTitle: 'Traces per hour by rolename'
+                }
+              }
             }
           }
         ]
