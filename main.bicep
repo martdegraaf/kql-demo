@@ -266,7 +266,7 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'dotnet-isolated'
+          value: 'dotnet'
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'

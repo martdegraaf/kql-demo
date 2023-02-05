@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "Demo.KQL.Functions": {
+    "Demo.KQL.FunctionsNet6": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7074",
+      "commandLineArgs": "--port 7206",
       "launchBrowser": false
     }
   }
