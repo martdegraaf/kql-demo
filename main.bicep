@@ -363,8 +363,10 @@ resource demoDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
           }
           {
             position:{
-              x: 8
-              y: 0
+              x: 0
+              y: 8
+              rowSpan: 6
+              colSpan: 4
             }
             metadata:{
               inputs:[
