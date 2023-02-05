@@ -294,13 +294,8 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
   }
 }
 
-
-resource demoDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
-  location: location
-  name: 'demo-dashboard'
-  tags: {
-    'hidden-title': 'My demo Bicep dashboard'
-  }
+@description('Generated from /subscriptions/5bb4a4b4-11df-4ed5-a790-cd6c34a98417/resourceGroups/kql-demo/providers/Microsoft.Portal/dashboards/demo-dashboard')
+resource demodashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
   properties: {
     lenses: [
       {
@@ -310,8 +305,8 @@ resource demoDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
             position: {
               x: 0
               y: 0
-              rowSpan: 2
-              colSpan: 3
+              rowSpan: 4
+              colSpan: 6
             }
             metadata: {
               inputs: []
@@ -327,51 +322,139 @@ resource demoDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
           }
           {
             position: {
-              x: 0
-              y: 2
-              rowSpan: 6
-              colSpan: 4
+              x: 6
+              y: 0
+              rowSpan: 4
+              colSpan: 6
             }
             metadata: {
               inputs: [
                 {
+                  name: 'resourceTypeMode'
+                  isOptional: true
+                }
+                {
+                  name: 'ComponentId'
+                  isOptional: true
+                }
+                {
                   name: 'Scope'
                   value: {
                     resourceIds: [
-                      appInsights.id
+                      '/subscriptions/5bb4a4b4-11df-4ed5-a790-cd6c34a98417/resourceGroups/kql-demo/providers/microsoft.insights/components/bicep-appi-2wej7bj'
                     ]
                   }
                   isOptional: true
                 }
                 {
+                  name: 'PartId'
+                  value: '993114d6-97a4-4adf-8623-e6b3038622bf'
+                  isOptional: true
+                }
+                {
+                  name: 'Version'
+                  value: '2.0'
+                  isOptional: true
+                }
+                {
+                  name: 'TimeRange'
+                  value: 'P1D'
+                  isOptional: true
+                }
+                {
+                  name: 'DashboardId'
+                  isOptional: true
+                }
+                {
+                  name: 'DraftRequestParameters'
+                  isOptional: true
+                }
+                {
                   name: 'Query'
-                  value: 'traces \n| summarize count() by Date = bin(timestamp, 1h), cloud_RoleName \n| render columnchart with (title="Traces per hour by rolename")'
+                  value: 'traces\n| summarize count() by Date = bin(timestamp, 1h), cloud_RoleName\n| render columnchart with (title="Traces per hour per rolename")\n\n'
                   isOptional: true
                 }
                 {
                   name: 'ControlType'
-                  value: 'AnalyticsGrid'
+                  value: 'FrameControlChart'
+                  isOptional: true
+                }
+                {
+                  name: 'SpecificChart'
+                  value: 'StackedColumn'
+                  isOptional: true
+                }
+                {
+                  name: 'PartTitle'
+                  value: 'Traces per hour per rolename'
+                  isOptional: true
+                }
+                {
+                  name: 'PartSubTitle'
+                  value: 'bicep-appi-2wej7bj'
+                  isOptional: true
+                }
+                {
+                  name: 'Dimensions'
+                  value: {
+                    xAxis: {
+                      name: 'Date'
+                      type: 'datetime'
+                    }
+                    yAxis: [
+                      {
+                        name: 'count_'
+                        type: 'long'
+                      }
+                    ]
+                    splitBy: [
+                      {
+                        name: 'cloud_RoleName'
+                        type: 'string'
+                      }
+                    ]
+                    aggregation: 'Sum'
+                  }
+                  isOptional: true
+                }
+                {
+                  name: 'LegendOptions'
+                  value: {
+                    isEnabled: true
+                    position: 'Bottom'
+                  }
+                  isOptional: true
+                }
+                {
+                  name: 'IsQueryContainTimeRange'
+                  value: false
                   isOptional: true
                 }
               ]
               type: 'Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart'
               settings: {
-                content: {
-                  Query: 'traces \n| summarize count() by Date = bin(timestamp, 1h), cloud_RoleName \n| render columnchart with (title="Traces per hour by rolename")'
-                  PartTitle: 'Traces per hour by rolename'
-                }
               }
             }
           }
           {
-            position:{
+            position: {
               x: 0
-              y: 8
-              rowSpan: 6
-              colSpan: 4
+              y: 4
+              rowSpan: 5
+              colSpan: 6
             }
-            metadata:{
-              inputs:[
+            metadata: {
+              inputs: [
+                {
+                  name: 'partTitle'
+                  value: 'resources-tags'
+                  isOptional: true
+                }
+                {
+                  name: 'query'
+                  value: 'resources\r\n    | where isnotempty(tags)\r\n    | extend teamTag = tostring(tags["team"])\r\n    | extend serviceTag = tostring(tags["Service"])\r\n    | extend serviceTag2 = tostring(tags["service"])\r\n    | where resourceGroup == "kql-demo"\r\n    | project name, teamTag, serviceTag\r\n| order by [\'serviceTag\'] desc'
+                  isOptional: true
+                }
                 {
                   name: 'chartType'
                   isOptional: true
@@ -382,11 +465,11 @@ resource demoDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
                 }
                 {
                   name: 'queryId'
+                  value: 'c0e6ac29-b998-4225-abfb-b475ad9abbbc'
                   isOptional: true
                 }
                 {
-                  name: 'partTitle'
-                  value: 'Query 1'
+                  name: 'formatResults'
                   isOptional: true
                 }
                 {
@@ -397,24 +480,145 @@ resource demoDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
                   }
                   isOptional: true
                 }
+              ]
+              type: 'Extension/HubsExtension/PartType/ArgQueryGridTile'
+              settings: {
+              }
+            }
+          }
+          {
+            position: {
+              x: 6
+              y: 4
+              rowSpan: 4
+              colSpan: 6
+            }
+            metadata: {
+              inputs: [
                 {
-                  name: 'formatResults'
-                  value: true
+                  name: 'resourceTypeMode'
+                  isOptional: true
+                }
+                {
+                  name: 'ComponentId'
+                  isOptional: true
+                }
+                {
+                  name: 'Scope'
+                  value: {
+                    resourceIds: [
+                      '/subscriptions/5bb4a4b4-11df-4ed5-a790-cd6c34a98417/resourceGroups/kql-demo/providers/microsoft.insights/components/bicep-appi-2wej7bj'
+                    ]
+                  }
+                  isOptional: true
+                }
+                {
+                  name: 'PartId'
+                  value: '013f287c-4d6e-4193-a350-0457d11665e6'
+                  isOptional: true
+                }
+                {
+                  name: 'Version'
+                  value: '2.0'
+                  isOptional: true
+                }
+                {
+                  name: 'TimeRange'
+                  isOptional: true
+                }
+                {
+                  name: 'DashboardId'
+                  isOptional: true
+                }
+                {
+                  name: 'DraftRequestParameters'
                   isOptional: true
                 }
                 {
                   name: 'Query'
-                  value: 'resources\n| where isnotempty(tags)\n| extend teamTag = tostring(tags["team"])\n| extend serviceTag = tostring(tags["Service"])\n| extend serviceTag2 = tostring(tags["service"])\n| where name like "prefix-p-"\n| project name, teamTag, serviceTag\n| order by [\'serviceTag\'] desc'
+                  value: 'union requests,dependencies,pageViews,browserTimings,exceptions,traces\n| where timestamp > ago(1d)\n| summarize RetainedPercentage = 100/avg(itemCount) by bin(timestamp, 1h), itemType\n| order by RetainedPercentage asc\n'
+                  isOptional: true
+                }
+                {
+                  name: 'ControlType'
+                  value: 'AnalyticsGrid'
+                  isOptional: true
+                }
+                {
+                  name: 'SpecificChart'
+                  isOptional: true
+                }
+                {
+                  name: 'PartTitle'
+                  value: 'Analytics'
+                  isOptional: true
+                }
+                {
+                  name: 'PartSubTitle'
+                  value: 'bicep-appi-2wej7bj'
+                  isOptional: true
+                }
+                {
+                  name: 'Dimensions'
+                  isOptional: true
+                }
+                {
+                  name: 'LegendOptions'
+                  isOptional: true
+                }
+                {
+                  name: 'IsQueryContainTimeRange'
+                  value: true
+                  isOptional: true
                 }
               ]
-              type: 'Extension/HubsExtension/PartType/ArgQueryGridTile'
-              partHeader: {
-                title: 'Resouces team tags'
+              type: 'Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart'
+              settings: {
               }
             }
           }
         ]
       }
     ]
+    metadata: {
+      model: {
+        timeRange: {
+          value: {
+            relative: {
+              duration: 24
+              timeUnit: 1
+            }
+          }
+          type: 'MsPortalFx.Composition.Configuration.ValueTypes.TimeRange'
+        }
+        filterLocale: {
+          value: 'en-us'
+        }
+        filters: {
+          value: {
+            MsPortalFx_TimeRange: {
+              model: {
+                format: 'utc'
+                granularity: 'auto'
+                relative: '24h'
+              }
+              displayCache: {
+                name: 'UTC Time'
+                value: 'Past 24 hours'
+              }
+              filteredPartIds: [
+                'StartboardPart-LogsDashboardPart-438ae423-c0a8-45d1-89a0-4b0401b8700b'
+                'StartboardPart-LogsDashboardPart-438ae423-c0a8-45d1-89a0-4b0401b8700d'
+              ]
+            }
+          }
+        }
+      }
+    }
   }
+  location: location
+  tags: {
+    'hidden-title': 'My demo Bicep dashboard'
+  }
+  name: 'demo-dashboard'
 }
