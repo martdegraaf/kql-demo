@@ -193,10 +193,10 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
     httpsOnly: true
     serverFarmId: plan.id
     siteConfig: {
-      linuxFxVersion: 'DOTNETCORE|6.0'
+      linuxFxVersion: 'DOTNET|7.0'
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
-      netFrameworkVersion: 'v6.0'
+      netFrameworkVersion: 'v7.0'
       appSettings: [
         {
           name: 'AzureWebJobsStorage'
@@ -250,7 +250,7 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
     httpsOnly: true
     serverFarmId: plan.id
     siteConfig: {
-      linuxFxVersion: 'DOTNETCORE|6.0'
+      linuxFxVersion: 'DOTNET|6.0'
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
       netFrameworkVersion: 'v6.0'
