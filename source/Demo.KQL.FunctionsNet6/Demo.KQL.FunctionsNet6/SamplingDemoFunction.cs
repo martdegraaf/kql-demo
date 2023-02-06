@@ -10,7 +10,7 @@ namespace Demo.KQL.FunctionsNet6
         {
             for (int i = 1; i <= 1000; i++)
             {
-                log.LogInformation("Logging messages from {function} iteration: {i}", nameof(SamplingDemoFunction), i);
+                log.LogInformation("Logging messages from {functionName} iteration: {i}", nameof(SamplingDemoFunction), i);
             }
         }
     }

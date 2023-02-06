@@ -16,7 +16,7 @@ namespace Demo.KQL.FunctionsNet6
         [FunctionName("BreakingFunction")]
         public void Run([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer)
         {
-            _logger.LogInformation("Executing {function}", nameof(BreakingFunction));
+            _logger.LogInformation("Executing {functionName}", nameof(BreakingFunction));
 
             Random rnd = new();
             int times = rnd.Next(1, 3);
@@ -32,12 +32,12 @@ namespace Demo.KQL.FunctionsNet6
             }
             catch (DemoException ex)
             {
-                _logger.LogError(ex, "A demo error occured during BreakingFunction {times}", times);
+                _logger.LogError(ex, "A demo error occured during {functionName} {times}", nameof(BreakingFunction), times);
                 // we expected this exception and will swallow, no exception today.
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "A unexpected occured during BreakingFunction {times}", times);
+                _logger.LogError(ex, "A unexpected occured during {functionName} {times}", nameof(BreakingFunction), times);
                 throw;
             }
         }
