@@ -16,7 +16,7 @@ namespace Demo.KQL.FunctionsNet6
         [FunctionName("LoggingFunction")]
         public void Run([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer)
         {
-            _logger.LogInformation("C# Timer trigger function {functioName} executed at: {now}", nameof(BreakingFunction), DateTime.Now);
+            _logger.LogInformation("C# Timer trigger function {functionName} executed at: {now}", nameof(BreakingFunction), DateTime.Now);
             _logger.LogInformation("Next timer schedule for {functionName} at: {next}", nameof(BreakingFunction), myTimer.ScheduleStatus.Next);
 
 
