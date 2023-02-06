@@ -267,7 +267,7 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
         }
         {
           name: 'ApplicationInsightsAgent_EXTENSION_VERSION'
-          value: '~2'
+          value: '~3'
         }
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
