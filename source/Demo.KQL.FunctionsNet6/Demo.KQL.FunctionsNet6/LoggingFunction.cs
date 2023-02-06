@@ -14,7 +14,7 @@ namespace Demo.KQL.FunctionsNet6
         }
 
         [FunctionName("LoggingFunction")]
-        public void Run([TimerTrigger("0 */5 * * * *")] MyInfo myTimer)
+        public void Run([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer)
         {
             _logger.LogInformation("C# Timer trigger function executed at: {now}", DateTime.Now);
             _logger.LogInformation("Next timer schedule at: {next}", myTimer.ScheduleStatus.Next);
@@ -55,21 +55,5 @@ namespace Demo.KQL.FunctionsNet6
                 _ => throw new Exception("This should be litteraly impossiblee"),
             };
         }
-    }
-
-    public class MyInfo
-    {
-        public MyScheduleStatus ScheduleStatus { get; set; }
-
-        public bool IsPastDue { get; set; }
-    }
-
-    public class MyScheduleStatus
-    {
-        public DateTime Last { get; set; }
-
-        public DateTime Next { get; set; }
-
-        public DateTime LastUpdated { get; set; }
     }
 }

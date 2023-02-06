@@ -15,7 +15,7 @@ namespace Demo.KQL.FunctionsNet6
         }
 
         [FunctionName("OffFunction")]
-        public void Run([TimerTrigger("0 */10 * * * *")] MyInfo myTimer)
+        public void Run([TimerTrigger("0 */10 * * * *")] TimerInfo myTimer)
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             _logger.LogInformation($"Next timer schedule at: {myTimer.ScheduleStatus.Next}");
