@@ -198,7 +198,6 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
       linuxFxVersion: 'DOTNET|7.0'
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
-      netFrameworkVersion: 'v7.0'
       appSettings: [
         {
           name: 'AzureWebJobsStorage'
@@ -211,6 +210,14 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
           value: appInsights.properties.InstrumentationKey
+        }
+        {
+          name: 'APPLICATIONINSIGHTS_ENABLE_AGENT'
+          value: 'true'
+        }
+        {
+          name: 'ApplicationInsightsAgent_EXTENSION_VERSION'
+          value: '~2'
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
@@ -255,7 +262,6 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
       linuxFxVersion: 'DOTNET|6.0'
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
-      netFrameworkVersion: 'v6.0'
       appSettings: [
         {
           name: 'AzureWebJobsStorage'
@@ -271,7 +277,7 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
         }
         {
           name: 'ApplicationInsightsAgent_EXTENSION_VERSION'
-          value: '~3'
+          value: '~2'
         }
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
@@ -515,7 +521,7 @@ resource demodashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
                   name: 'Scope'
                   value: {
                     resourceIds: [
-                      '/subscriptions/5bb4a4b4-11df-4ed5-a790-cd6c34a98417/resourceGroups/kql-demo/providers/microsoft.insights/components/bicep-appi-2wej7bj'
+                      appInsights.id
                     ]
                   }
                   isOptional: true
