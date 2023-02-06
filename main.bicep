@@ -266,6 +266,10 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
           value: storageConnectionString
         }
         {
+          name: 'APPLICATIONINSIGHTS_ENABLE_AGENT'
+          value: 'true'
+        }
+        {
           name: 'ApplicationInsightsAgent_EXTENSION_VERSION'
           value: '~3'
         }
