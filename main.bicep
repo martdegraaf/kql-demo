@@ -239,6 +239,10 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
           name: 'ContentContainer'
           value: storage::blobService::content.name
         }
+        {
+          name: 'AzureFunctionsWebHost__hostid'
+          value: '1234'
+        }
       ]
     }
   }
@@ -302,6 +306,10 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
         {
           name: 'ContentContainer'
           value: storage::blobService::content.name
+        }
+        {
+          name: 'AzureFunctionsWebHost__hostid'
+          value: '6789'
         }
       ]
     }
