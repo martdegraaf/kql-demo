@@ -6,7 +6,7 @@ namespace Demo.KQL.FunctionsNet6
     public class SamplingDemoFunction
     {
         [FunctionName("SamplingDemoFunction")]
-        public void Run([TimerTrigger("0 0 * * * *")] TimerInfo myTimer, ILogger log)
+        public void Run([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer, ILogger log)
         {
             for (int i = 1; i <= 1000; i++)
             {
