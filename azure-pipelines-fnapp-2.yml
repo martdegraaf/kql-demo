@@ -7,6 +7,7 @@ trigger:
   paths:
     include:
     - source/Demo.KQL.FunctionsNet6/Demo.KQL.FunctionsNet6
+    - azure-pipelines-fnapp-2.yml
 
 variables:
   resourceGroupName: 'kql-demo'
@@ -67,4 +68,5 @@ stages:
               azureSubscription: '$(azureSubscription)'
               appType: functionAppLinux
               appName: $(functionAppName)
+              deploymentMethod: zipDeploy
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
