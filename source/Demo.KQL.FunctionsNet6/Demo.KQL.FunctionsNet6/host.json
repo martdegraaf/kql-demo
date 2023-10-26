@@ -6,6 +6,9 @@
                 "isEnabled": true,
                 "excludedTypes": "Request, Exception"
             }
+        },
+        "logLevel": {
+            "Demo.KQL.FunctionsNet6": "Information"
         }
     }
 }
