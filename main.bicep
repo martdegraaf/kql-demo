@@ -4,7 +4,7 @@
 @minLength(3)
 @maxLength(6)
 @description('Prefix to be used by all resources deployed by this template')
-param resourcePrefix string = 'martkqldemo'
+param resourcePrefix string = 'kql'
 
 @allowed([
   'Standard_LRS'
