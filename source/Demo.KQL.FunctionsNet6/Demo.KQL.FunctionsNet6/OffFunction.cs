@@ -9,9 +9,9 @@ namespace Demo.KQL.FunctionsNet6
     {
         private readonly ILogger _logger;
 
-        public OffFunction(ILoggerFactory loggerFactory)
+        public OffFunction(ILogger<OffFunction> logger)
         {
-            _logger = loggerFactory.CreateLogger<OffFunction>();
+            _logger = logger;
         }
 
         [FunctionName("OffFunction")]
