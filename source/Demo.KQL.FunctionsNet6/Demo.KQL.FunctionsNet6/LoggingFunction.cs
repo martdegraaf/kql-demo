@@ -8,9 +8,9 @@ namespace Demo.KQL.FunctionsNet6
     {
         private readonly ILogger _logger;
 
-        public LoggingFunction(ILoggerFactory loggerFactory)
+        public LoggingFunction(ILogger<LoggingFunction> logger)
         {
-            _logger = loggerFactory.CreateLogger<LoggingFunction>();
+            _logger = logger;
         }
 
         [FunctionName("LoggingFunction")]
