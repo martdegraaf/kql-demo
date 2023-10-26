@@ -14,7 +14,7 @@ namespace Demo.KQL.FunctionsNet6
         }
 
         [FunctionName("BreakingFunction")]
-        public void Run([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer)
+        public void Run([TimerTrigger("0 * * * * *")] TimerInfo myTimer)
         {
             _logger.LogInformation("Executing {functionName}", nameof(BreakingFunction));
 
