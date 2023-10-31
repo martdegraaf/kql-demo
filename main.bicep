@@ -212,6 +212,10 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
           value: appInsights.properties.InstrumentationKey
         }
         {
+          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          value: appInsights.properties.ConnectionString
+        }
+        {
           name: 'APPLICATIONINSIGHTS_ENABLE_AGENT'
           value: 'true'
         }
