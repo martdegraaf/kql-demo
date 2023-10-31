@@ -19,7 +19,7 @@ namespace Demo.KQL.FunctionsNet6
             _logger.LogInformation("Executing {functionName}", nameof(BreakingFunction));
 
             Random rnd = new();
-            int times = rnd.Next(1, 3);
+            int times = rnd.Next(1, 4);
             try
             {
                 int randomnessWillGuide = times switch
