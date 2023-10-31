@@ -195,7 +195,7 @@ resource funcApp 'Microsoft.Web/sites@2021-02-01' = {
     httpsOnly: true
     serverFarmId: plan.id
     siteConfig: {
-      linuxFxVersion: 'DOTNET|7.0'
+      linuxFxVersion: 'DOTNET-ISOLATED|7.0'
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
       appSettings: [
@@ -290,6 +290,10 @@ resource funcApp2 'Microsoft.Web/sites@2021-02-01' = {
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
           value: appInsights.properties.InstrumentationKey
+        }
+        {
+          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          value: appInsights.properties.ConnectionString
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
