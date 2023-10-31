@@ -58,7 +58,7 @@ namespace Demo.KQL.Functions
 
     public class MyInfo
     {
-        public MyScheduleStatus ScheduleStatus { get; set; }
+        public MyScheduleStatus? ScheduleStatus { get; set; }
 
         public bool IsPastDue { get; set; }
     }
