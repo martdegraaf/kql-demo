@@ -13,6 +13,7 @@ using Kusto.Cloud.Platform.Utils;
 using static System.Net.WebRequestMethods;
 using Kusto.Cloud.Platform.Data;
 using System.Linq;
+using Kusto.Data;
 
 namespace Demo.KQL.FunctionsNet6
 {
@@ -24,7 +25,17 @@ namespace Demo.KQL.FunctionsNet6
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "GetKustoLawOutput")] HttpRequest req,
             ILogger log)
         {
-            var client = Kusto.Data.Net.Client.KustoClientFactory.CreateCslQueryProvider("https://ade.loganalytics.io/subscriptions/5bb4a4b4-11df-4ed5-a790-cd6c34a98417/resourcegroups/kql-demo/providers/microsoft.operationalinsights/workspaces/bicep-law-2wej7bj;Fed=true;Initial Catalog=bicep-law-2wej7bj");
+            var kustoUri = "https://ade.loganalytics.io/subscriptions/5bb4a4b4-11df-4ed5-a790-cd6c34a98417/resourcegroups/kql-demo/providers/microsoft.operationalinsights/workspaces/bicep-law-2wej7bj";
+            var kustoConnectionStringBuilder = new KustoConnectionStringBuilder(kustoUri)
+#if DEBUG
+                .WithAadUserPromptAuthentication();
+#else
+                .WithAadSystemManagedIdentity();
+#endif
+
+            kustoConnectionStringBuilder.InitialCatalog = "bicep-law-2wej7bj";
+            var client = Kusto.Data.Net.Client.KustoClientFactory.CreateCslQueryProvider(kustoConnectionStringBuilder);
+
             using var reader = client.ExecuteQuery("AppExceptions | where TimeGenerated > ago(2h) | count");
             log.LogInformation($"KustoLawFunction function started");
 
