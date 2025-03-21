@@ -11,13 +11,13 @@ variables:
   # azureSubscription: '0788092a-a6d9-4a51-ad71-7d1a9e0bd299'
 
   # Function app name
-  functionAppName: 'bicep-fnapp-2wej7bj'
+  functionAppName: 'bicep-fnapp-mart'
 
   # Agent VM image name
   vmImageName: 'windows-2019'
 
   # Working Directory
-  workingDirectory: '$(System.DefaultWorkingDirectory)/source/Demo.KQL.Functions/Demo.KQL.Functions'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/source/Demo.KQL.Functions9/Demo.KQL.Functions9'
 
 pool:
   vmImage: ubuntu-latest

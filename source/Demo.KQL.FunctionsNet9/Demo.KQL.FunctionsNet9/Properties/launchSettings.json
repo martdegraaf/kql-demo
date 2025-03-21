@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Demo.KQL.FunctionsNet9": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7044"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 30433,
+      "useSSL": false
+    }
+  }
+}
