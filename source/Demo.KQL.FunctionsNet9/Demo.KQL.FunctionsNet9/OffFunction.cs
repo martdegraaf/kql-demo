@@ -1,4 +1,4 @@
-using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -14,7 +14,7 @@ namespace Demo.KQL.FunctionsNet6
             _logger = logger;
         }
 
-        [FunctionName("OffFunction")]
+        [Function("OffFunction")]
         public void Run([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer)
         {
             _logger.LogInformation("C# Timer trigger function {functionName} executed at: {now}", nameof(OffFunction), DateTime.Now);

@@ -1,4 +1,4 @@
-using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -13,7 +13,7 @@ namespace Demo.KQL.FunctionsNet9
             _logger = logger;
         }
 
-        [FunctionName("BreakingFunction")]
+        [Function("BreakingFunction")]
         public void Run([TimerTrigger("0 * * * * *")] TimerInfo myTimer)
         {
             _logger.LogInformation("Executing {functionName}", nameof(BreakingFunction));
