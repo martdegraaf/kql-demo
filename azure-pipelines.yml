@@ -17,7 +17,7 @@ variables:
   vmImageName: 'windows-2019'
 
   # Working Directory
-  workingDirectory: '$(System.DefaultWorkingDirectory)/source/Demo.KQL.Functions9/Demo.KQL.Functions9'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/source/Demo.KQL.FunctionsNet9/Demo.KQL.FunctionsNet9'
 
 pool:
   vmImage: ubuntu-latest
