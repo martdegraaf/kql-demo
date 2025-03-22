@@ -1,4 +1,5 @@
-using Microsoft.Azure.WebJobs;
+
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
 namespace Demo.KQL.FunctionsNet6
@@ -12,7 +13,7 @@ namespace Demo.KQL.FunctionsNet6
             _logger = logger;
         }
 
-        [FunctionName("SamplingDemoFunction")]
+        [Function("SamplingDemoFunction")]
         public void Run([TimerTrigger("0 */10 * * * *")] TimerInfo myTimer)
         {
             for (int i = 1; i <= 1000; i++)
