@@ -9,7 +9,7 @@
       "enableLiveMetricsFilters": true
     },
     "logLevel": {
-      "Demo.KQL.FunctionsNet6": "Information"
+      "Demo.KQL.FunctionsNet9": "Information"
     }
   }
 }
