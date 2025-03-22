@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 public class SensitiveJsonConverter : JsonConverter<object>
 {
-    public override object Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         return JsonSerializer.Deserialize(ref reader, typeToConvert, options);
     }
@@ -38,55 +38,12 @@ public class SensitiveJsonConverter : JsonConverter<object>
             else
             {
                 // Write the property value directly
-                if (propertyValue == null || IsPrimitiveType(propertyValue.GetType()))
-                {
-                    writer.WritePropertyName(property.Name);
-                    JsonSerializer.Serialize(writer, propertyValue, options);
-                }
-                else
-                {
-                    // Handle complex types directly
-                    writer.WritePropertyName(property.Name);
-                    writer.WriteStartObject();
-                    WriteComplexType(writer, propertyValue, options);
-                    writer.WriteEndObject();
-                }
+                writer.WritePropertyName(property.Name);
+                JsonSerializer.Serialize(writer, propertyValue, propertyValue?.GetType() ?? typeof(object), options);
             }
         }
 
         writer.WriteEndObject();
-    }
-
-    private void WriteComplexType(Utf8JsonWriter writer, object value, JsonSerializerOptions options)
-    {
-        var type = value.GetType();
-        foreach (var property in type.GetProperties())
-        {
-            var isSensitive = Attribute.IsDefined(property, typeof(SensitiveAttribute));
-            var propertyValue = property.GetValue(value);
-
-            if (isSensitive)
-            {
-                writer.WriteString(property.Name, "****"); // Mask sensitive data
-            }
-            else
-            {
-                // Write the property value directly
-                if (propertyValue == null || IsPrimitiveType(propertyValue.GetType()))
-                {
-                    writer.WritePropertyName(property.Name);
-                    JsonSerializer.Serialize(writer, propertyValue, options);
-                }
-                else
-                {
-                    // Handle nested complex types
-                    writer.WritePropertyName(property.Name);
-                    writer.WriteStartObject();
-                    WriteComplexType(writer, propertyValue, options);
-                    writer.WriteEndObject();
-                }
-            }
-        }
     }
 
     private bool IsPrimitiveType(Type type)
