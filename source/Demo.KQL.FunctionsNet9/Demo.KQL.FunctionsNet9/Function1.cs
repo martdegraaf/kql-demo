@@ -28,13 +28,20 @@ namespace Demo.KQL.FunctionsNet9
 
             // Log the model (the sensitive data will be masked)
             LogMySensitiveModel(_logger, model);
+            LogMySensitiveModel2(_logger, model);
 
             return new JsonResult(model);
         }
 
         [LoggerMessage(
             Level = LogLevel.Information,
-            Message = "Logging Sesnsitive model: {model.Name}")]
+            Message = "Logging Sesnsitive model")]
         private static partial void LogMySensitiveModel(ILogger logger, [LogProperties] MyModel model);
+
+        [LoggerMessage(
+            EventId = 1,
+            Level = LogLevel.Information,
+            Message = "Logging Sesnsitive model maar dan anders?")]
+        private static partial void LogMySensitiveModel2(ILogger logger, [LogProperties] MyModel model);
     }
 }
