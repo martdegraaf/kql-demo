@@ -31,6 +31,7 @@ namespace Demo.KQL.FunctionsNet9
             // Log the model (the sensitive data will be masked)
             LogMySensitiveModel(_logger, model);
             LogMySensitiveModel2(_logger, model);
+            LogMySensitiveModel3(_logger, model);
 
             return new JsonResult(model);
         }
@@ -44,5 +45,10 @@ namespace Demo.KQL.FunctionsNet9
             Level = LogLevel.Information,
             Message = "Logging Sesnsitive model maar dan anders?")]
         private static partial void LogMySensitiveModel2(ILogger logger, [LogProperties(OmitReferenceName = true, SkipNullProperties = true)] MyModel model);
+
+        [LoggerMessage(
+            Level = LogLevel.Information,
+            Message = "Logging Sesnsitive model met Nulleable?")]
+        private static partial void LogMySensitiveModel3(ILogger logger, [LogProperties(OmitReferenceName = true, SkipNullProperties = false)] MyModel model);
     }
 }
