@@ -33,7 +33,7 @@ namespace Demo.KQL.FunctionsNet9
         }
 
         [LoggerMessage(
-            Level = LogLevel.Debug,
+            Level = LogLevel.Information,
             Message = "Logging Sesnsitive model: {model}")]
         private static partial void LogMySensitiveModel(ILogger logger, [LogProperties] MyModel model);
     }
