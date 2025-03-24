@@ -1,3 +1,4 @@
+using Demo.KQL.FunctionsNet9.SensitiveLogging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -23,7 +24,8 @@ namespace Demo.KQL.FunctionsNet9
             var model = new MyModel
             {
                 Name = "John Doe",
-                SensitiveData = "Secret123"
+                SensitiveData = "Secret123",
+                NoLogThis = "Kiekeleboe"
             };
 
             // Log the model (the sensitive data will be masked)
@@ -39,9 +41,8 @@ namespace Demo.KQL.FunctionsNet9
         private static partial void LogMySensitiveModel(ILogger logger, [LogProperties] MyModel model);
 
         [LoggerMessage(
-            EventId = 1,
             Level = LogLevel.Information,
             Message = "Logging Sesnsitive model maar dan anders?")]
-        private static partial void LogMySensitiveModel2(ILogger logger, [LogProperties] MyModel model);
+        private static partial void LogMySensitiveModel2(ILogger logger, [LogProperties(OmitReferenceName = true, SkipNullProperties = true)] MyModel model);
     }
 }

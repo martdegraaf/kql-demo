@@ -1,16 +1,10 @@
+using Demo.KQL.FunctionsNet9.SensitiveLogging;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using System;
 
 namespace Demo.KQL.FunctionsNet9
 {
-    public class MyModel
-    {
-        public string Name { get; set; }
-
-        [LogPropertyIgnore]
-        public string SensitiveData { get; set; }
-    }
     public class LoggingFunction
     {
         private readonly ILogger _logger;
@@ -30,7 +24,8 @@ namespace Demo.KQL.FunctionsNet9
             var model = new MyModel
             {
                 Name = "John Doe",
-                SensitiveData = "Secret123"
+                SensitiveData = "Secret123",
+                NoLogThis= "Kiekeleboe"
             };
 
             // Log the model (the sensitive data will be masked)
