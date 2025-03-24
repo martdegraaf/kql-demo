@@ -8,7 +8,7 @@ namespace Demo.KQL.FunctionsNet9
     {
         public string Name { get; set; }
 
-        [Sensitive]
+        [LogPropertyIgnore]
         public string SensitiveData { get; set; }
     }
     public class LoggingFunction
