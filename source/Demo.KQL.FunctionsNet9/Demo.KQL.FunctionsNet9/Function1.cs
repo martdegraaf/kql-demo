@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
+
 namespace Demo.KQL.FunctionsNet9
 {
-    public class Function1
+    public partial class Function1
     {
         private readonly ILogger<Function1> _logger;
 
@@ -17,7 +18,7 @@ namespace Demo.KQL.FunctionsNet9
         [Function("Function1")]
         public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
         {
-            _logger.LogInformation("C# HTTP trigger function processed a request.");
+            _logger.LogWarning("C# HTTP trigger function processed a request.");
 
             var model = new MyModel
             {
@@ -26,9 +27,14 @@ namespace Demo.KQL.FunctionsNet9
             };
 
             // Log the model (the sensitive data will be masked)
-            _logger.LogInformation("Logging model: {@Model}", model);
+            LogMySensitiveModel(_logger, model);
 
             return new JsonResult(model);
         }
+
+        [LoggerMessage(
+            Level = LogLevel.Debug,
+            Message = "Logging Sesnsitive model: {model}")]
+        private static partial void LogMySensitiveModel(ILogger logger, [LogProperties] MyModel model);
     }
 }
