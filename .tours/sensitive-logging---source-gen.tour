@@ -1,0 +1,21 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Sensitive logging - source gen",
+  "steps": [
+    {
+      "file": "source/Demo.KQL.FunctionsNet9/Demo.KQL.FunctionsNet9/SensitiveLogging/Function1.cs",
+      "description": "Defines a LoggerMessage for MyModel\r\n\r\n[LogProperties] will Log all properties of the model",
+      "line": 39
+    },
+    {
+      "file": "source/Demo.KQL.FunctionsNet9/Demo.KQL.FunctionsNet9/SensitiveLogging/Function1.cs",
+      "description": "Clean Log call with your model",
+      "line": 32
+    },
+    {
+      "file": "source/Demo.KQL.FunctionsNet9/Demo.KQL.FunctionsNet9/SensitiveLogging/MyModel.cs",
+      "description": "Ignore This Property to log, its important it must be returned, but not logged.",
+      "line": 9
+    }
+  ]
+}
